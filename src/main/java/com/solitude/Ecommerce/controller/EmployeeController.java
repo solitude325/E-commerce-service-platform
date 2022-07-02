@@ -1,0 +1,50 @@
+package com.solitude.Ecommerce.controller;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.solitude.Ecommerce.common.R;
+import com.solitude.Ecommerce.entity.Employee;
+import com.solitude.Ecommerce.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+
+@Slf4j
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @PostMapping("/login")
+    public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
+        String password = employee.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
+
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Employee::getUsername,employee.getUsername());
+        Employee emp = employeeService.getOne(queryWrapper);
+
+        if (emp == null){
+            return R.error("Can't find this user");
+        }
+
+        if (!emp.getPassword().equals(password)){
+            return R.error("Password error");
+        }
+
+        if (emp.getStatus() == 0){
+            return R.error("User banned");
+        }
+
+        request.getSession().setAttribute("employee",emp.getId());
+        return R.success(emp);
+    }
+}
