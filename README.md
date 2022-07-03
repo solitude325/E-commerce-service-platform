@@ -1,9 +1,9 @@
 <p align="center">
 	<img alt="logo" src="/src/main/resources/static/backend/images/login/logo.png" height="50px" width="50px">
 </p>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">E-commerce-service-platform</h1>
+<h4 align="center">基于SpringBoot开发的电商管理平台</h4>
 
-# E-commerce-service-platform
-基于SpringBoot开发的电商管理平台
 ## 技术选型
 * 前端用户界面: HTML Vue ElementUI
 * 后端应用层: SpringBoot SpringMvc Spring lombok
