@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="logo" src="https://solitude0325.gitee.io/img/head.png" height="50px" width="50px">
+	<img alt="logo" src="/src/main/resources/static/backend/images/login/logo.png" height="50px" width="50px">
 </p>
 
 # E-commerce-service-platform
