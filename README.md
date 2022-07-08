@@ -11,7 +11,7 @@
 * 版本管理: Git
 * 项目依赖: Maven
 ## 项目演示地址
-<https://solitude325.github.io/>
+<http://edemo.solitude0325.top>
 ## 发布地址
 <https://solitude325.github.io/>
 ## 实现功能

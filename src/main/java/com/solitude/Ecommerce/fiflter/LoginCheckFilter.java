@@ -1,6 +1,7 @@
 package com.solitude.Ecommerce.fiflter;
 
 import com.alibaba.fastjson.JSON;
+import com.solitude.Ecommerce.common.BaseContext;
 import com.solitude.Ecommerce.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -36,6 +37,9 @@ public class LoginCheckFilter implements Filter {
         }
 
         if (request1.getSession().getAttribute("employee") != null) {
+            log.info("User ready, id = {}",(request1.getSession().getAttribute("employee")));
+            Long empId = (Long) request1.getSession().getAttribute("employee");
+            BaseContext.setThreadLocal(empId);
             chain.doFilter(request1, response1);
             return;
         }
