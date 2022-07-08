@@ -15,7 +15,7 @@ public class MyMetaObjectMapper implements MetaObjectHandler {
         log.info("[insert]");
         metaObject.setValue("createTime", LocalDateTime.now());
         metaObject.setValue("updateTime", LocalDateTime.now());
-        metaObject.setValue("insertUser",BaseContext.getCurrentId());
+        metaObject.setValue("createUser",BaseContext.getCurrentId());
         metaObject.setValue("updateUser",BaseContext.getCurrentId());
     }
 
