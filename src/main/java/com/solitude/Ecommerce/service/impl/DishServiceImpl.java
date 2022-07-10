@@ -6,7 +6,6 @@ import com.solitude.Ecommerce.common.CustomException;
 import com.solitude.Ecommerce.dto.DishDto;
 import com.solitude.Ecommerce.entity.Dish;
 import com.solitude.Ecommerce.entity.DishFlavor;
-import com.solitude.Ecommerce.entity.Setmeal;
 import com.solitude.Ecommerce.entity.SetmealDish;
 import com.solitude.Ecommerce.mapper.DishMapper;
 import com.solitude.Ecommerce.service.DishFlavorService;
@@ -88,14 +87,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     @Transactional
     public void remove(List<Long> ids) {
         LambdaQueryWrapper<SetmealDish> setmealDishLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        setmealDishLambdaQueryWrapper.in(SetmealDish::getDishId,ids);
+        setmealDishLambdaQueryWrapper.in(SetmealDish::getDishId, ids);
         int count2 = setmealDishService.count(setmealDishLambdaQueryWrapper);
-        if (count2>0){
+        if (count2 > 0) {
             throw new CustomException("With Setmeal!");
         }
 
         LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dishFlavorLambdaQueryWrapper.in(DishFlavor::getDishId,ids);
+        dishFlavorLambdaQueryWrapper.in(DishFlavor::getDishId, ids);
         dishFlavorService.remove(dishFlavorLambdaQueryWrapper);
 
         List<Boolean> list = ids.stream().map((item) -> {

@@ -8,7 +8,6 @@ import com.solitude.Ecommerce.dto.DishDto;
 import com.solitude.Ecommerce.entity.Category;
 import com.solitude.Ecommerce.entity.Dish;
 import com.solitude.Ecommerce.service.CategoryService;
-import com.solitude.Ecommerce.service.DishFlavorService;
 import com.solitude.Ecommerce.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -24,9 +23,6 @@ import java.util.stream.Collectors;
 public class DishController {
     @Autowired
     private DishService dishService;
-
-    @Autowired
-    private DishFlavorService dishFlavorService;
 
     @Autowired
     private CategoryService categoryService;
@@ -89,11 +85,11 @@ public class DishController {
     }
 
     @PostMapping("/status/{status}")
-    public R<String> delete(@RequestParam List<Long> ids,@PathVariable int status) {
-        log.info("Update status {} {}", ids,status);
+    public R<String> status(@RequestParam List<Long> ids, @PathVariable int status) {
+        log.info("Update status {} {}", ids, status);
 
         LambdaUpdateWrapper<Dish> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.in(Dish::getId,ids).set(Dish::getStatus,status);
+        updateWrapper.in(Dish::getId, ids).set(Dish::getStatus, status);
 
         dishService.update(updateWrapper);
 
@@ -109,4 +105,15 @@ public class DishController {
         return R.success("Delete success");
     }
 
+    @GetMapping("/list")
+    public R<List<Dish>> list(Dish dish) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId());
+        queryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        queryWrapper.eq(Dish::getStatus,1);
+
+        List<Dish> list = dishService.list(queryWrapper);
+
+        return R.success(list);
+    }
 }
