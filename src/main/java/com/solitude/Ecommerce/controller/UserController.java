@@ -65,4 +65,9 @@ public class UserController {
         }
         return R.error("Login error");
     }
+
+    @PostMapping("/loginout")
+    public R<String> logout() {
+        return null;
+    }
 }

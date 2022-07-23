@@ -1,0 +1,7 @@
+{
+  "name": "E-commerce-service-platform",
+  "version": "1.0.0",
+  "dependencies": {
+    "echarts": "^5.3.3"
+  }
+}
