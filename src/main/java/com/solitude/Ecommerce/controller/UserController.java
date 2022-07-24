@@ -76,7 +76,7 @@ public class UserController {
         return R.error("Login error");
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/loginout")
     public R<String> logout(HttpServletRequest request) {
         request.getSession().removeAttribute("user");
         return R.success("Logout success");

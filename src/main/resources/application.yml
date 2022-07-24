@@ -1,12 +1,12 @@
 server:
-  port: 8080
+  port: 1626
 spring:
   application:
     name: E-commerce-service-platform
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://82.157.108.151:3306/ecommerce?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: GOdJZG8b4DYtUZO8Tz6ZxJ9IE1A7H1jO564Ls9OLqlbEbJffVp/TMXyFF54Y0M95ENrNYnH31c9DBIAEVmqkVA==
       connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJJgu1CzZkdwIcnt62tqODGYFjhVRzmoPqn+HWRTberqCfqEuhIHOc7BOZ/4j/XsjnYkXUTSavPRfp3A/mHAuk8CAwEAAQ==
@@ -14,7 +14,7 @@ spring:
         config:
           enabled: true
   redis:
-    host: 82.157.108.151
+    host: localhost
     port: 6379
     database: 0
     password: 130325zzy
@@ -30,4 +30,4 @@ mybatis-plus:
     db-config:
       id-type: ASSIGN_ID
 Ecommerce:
-  path: D:\Temp\
+  path: /home/edemo/app/Epicture/
