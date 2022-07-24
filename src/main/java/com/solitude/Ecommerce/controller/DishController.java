@@ -14,6 +14,8 @@ import com.solitude.Ecommerce.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public class DishController {
     private DishFlavorService dishFlavorService;
 
     @PostMapping
+    @CacheEvict(value = "dishCache",allEntries = true)
     public R<String> save(@RequestBody DishDto dishDto) {
         log.info(dishDto.toString());
         dishService.saveWithFlavor(dishDto);
@@ -81,6 +84,7 @@ public class DishController {
     }
 
     @PutMapping
+    @CacheEvict(value = "dishCache",allEntries = true)
     public R<String> update(@RequestBody DishDto dishDto) {
         log.info(dishDto.toString());
 
@@ -102,6 +106,7 @@ public class DishController {
     }
 
     @DeleteMapping
+    @CacheEvict(value = "dishCache",allEntries = true)
     public R<String> delete(@RequestParam List<Long> ids) {
         log.info("Delete Dish {}", ids);
 
@@ -111,6 +116,7 @@ public class DishController {
     }
 
     @GetMapping("/list")
+    @Cacheable(value = "dishCache",key = "#dish.categoryId+'_'+#dish.status")
     public R<List<DishDto>> list(Dish dish) {
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId());
